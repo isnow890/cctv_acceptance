@@ -1,0 +1,100 @@
+import 'dart:html';
+
+import 'package:cctv_acceptance/src/cctv/model/post_model.dart';
+import 'package:cctv_acceptance/theme/component/bottom_sheet/setting_bottom_sheet.dart';
+import 'package:cctv_acceptance/theme/component/button/button.dart';
+import 'package:cctv_acceptance/theme/component/custom_key_value_border.dart';
+import 'package:cctv_acceptance/theme/layout/default_layout.dart';
+import 'package:cctv_acceptance/theme/provider/theme_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class ResultScreen extends ConsumerWidget {
+  ResultScreen({
+    required this.title,
+    required this.detail,
+    this.result,
+    Key? key,
+  }) : super(key: key);
+  final String title;
+  final String? result;
+  final String detail;
+
+  static String get routeName => 'result';
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeServiceProvider);
+
+    return DefaultLayout(
+        useSliver: false,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    color: theme.color.onInactiveContainer,
+                    border: Border.all(
+                      color: theme.color.hintContainer,
+                      width: 2.0,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          title,
+                          style: theme.typo.headline1.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const Divider(
+                          height: 10,
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Visibility(
+                            visible: result != null,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  result ?? '',
+                                  style: theme.typo.headline2.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            )),
+                        Text(
+                          detail,
+                          style: theme.typo.headline5,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                  )),
+            ],
+          ),
+        ));
+  }
+}
