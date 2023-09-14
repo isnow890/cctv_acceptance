@@ -1,6 +1,4 @@
-import 'dart:html';
 
-import 'package:cctv_acceptance/src/cctv/model/post_model.dart';
 import 'package:cctv_acceptance/theme/component/bottom_sheet/setting_bottom_sheet.dart';
 import 'package:cctv_acceptance/theme/component/button/button.dart';
 import 'package:cctv_acceptance/theme/component/custom_key_value_border.dart';
@@ -37,10 +35,10 @@ class ResultScreen extends ConsumerWidget {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
-                    color: theme.color.onInactiveContainer,
+                    color: theme.color.inactiveContainer,
                     border: Border.all(
-                      color: theme.color.hintContainer,
-                      width: 2.0,
+                      color: theme.color.inactiveContainer,
+                      width: 1.0,
                     ),
                   ),
                   child: Padding(

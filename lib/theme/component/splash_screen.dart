@@ -15,7 +15,6 @@ class SplashScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultLayout(
-
       useSliver: false,
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
@@ -39,6 +38,10 @@ class SplashScreen extends ConsumerWidget {
               height: 20,
             ),
             const CircularIndicator(),
+            Text(
+              '로딩중입니다.',
+              style: TextStyle(color: Colors.white),
+            ),
           ],
         ),
       ),

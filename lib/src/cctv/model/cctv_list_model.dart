@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'cctv_model.g.dart';
+part 'cctv_list_model.g.dart';
 
-part 'cctv_model.freezed.dart';
+part 'cctv_list_model.freezed.dart';
 
 @freezed
 class CctvListResModel with _$CctvListResModel {

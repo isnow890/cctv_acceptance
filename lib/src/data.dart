@@ -17,7 +17,7 @@ const WRONG_PAGE_TITLE = '잘못된 요청';
 
 const WRONG_PAGE_DETAIL = '요청하신 페이지는 존재 하지 않습니다.';
 
-final baseUrl = 'http://localhost:63618';
+final baseUrl = 'https://def7-106-250-199-244.ngrok-free.app';
 
 //  final baseUrl = 'http://10.20.82.56:8044';
 

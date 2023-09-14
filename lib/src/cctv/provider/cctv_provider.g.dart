@@ -6,7 +6,7 @@ part of 'cctv_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cctvsHash() => r'9fa93131853ad7ccd68669610860e719e672bf2d';
+String _$cctvsHash() => r'720212f55bce456a69a96142ee0f635ac4a893bc';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -43,11 +43,13 @@ class CctvsFamily extends Family<AsyncValue<List<CctvListResModel>>> {
     required String HSP_TP_CD,
     required String REQ_ID,
     required String SID,
+    required dynamic initialLoad,
   }) {
     return CctvsProvider(
       HSP_TP_CD: HSP_TP_CD,
       REQ_ID: REQ_ID,
       SID: SID,
+      initialLoad: initialLoad,
     );
   }
 
@@ -59,6 +61,7 @@ class CctvsFamily extends Family<AsyncValue<List<CctvListResModel>>> {
       HSP_TP_CD: provider.HSP_TP_CD,
       REQ_ID: provider.REQ_ID,
       SID: provider.SID,
+      initialLoad: provider.initialLoad,
     );
   }
 
@@ -84,12 +87,14 @@ class CctvsProvider extends AutoDisposeFutureProvider<List<CctvListResModel>> {
     required String HSP_TP_CD,
     required String REQ_ID,
     required String SID,
+    required dynamic initialLoad,
   }) : this._internal(
           (ref) => cctvs(
             ref as CctvsRef,
             HSP_TP_CD: HSP_TP_CD,
             REQ_ID: REQ_ID,
             SID: SID,
+            initialLoad: initialLoad,
           ),
           from: cctvsProvider,
           name: r'cctvsProvider',
@@ -102,6 +107,7 @@ class CctvsProvider extends AutoDisposeFutureProvider<List<CctvListResModel>> {
           HSP_TP_CD: HSP_TP_CD,
           REQ_ID: REQ_ID,
           SID: SID,
+          initialLoad: initialLoad,
         );
 
   CctvsProvider._internal(
@@ -114,11 +120,13 @@ class CctvsProvider extends AutoDisposeFutureProvider<List<CctvListResModel>> {
     required this.HSP_TP_CD,
     required this.REQ_ID,
     required this.SID,
+    required this.initialLoad,
   }) : super.internal();
 
   final String HSP_TP_CD;
   final String REQ_ID;
   final String SID;
+  final dynamic initialLoad;
 
   @override
   Override overrideWith(
@@ -136,6 +144,7 @@ class CctvsProvider extends AutoDisposeFutureProvider<List<CctvListResModel>> {
         HSP_TP_CD: HSP_TP_CD,
         REQ_ID: REQ_ID,
         SID: SID,
+        initialLoad: initialLoad,
       ),
     );
   }
@@ -150,7 +159,8 @@ class CctvsProvider extends AutoDisposeFutureProvider<List<CctvListResModel>> {
     return other is CctvsProvider &&
         other.HSP_TP_CD == HSP_TP_CD &&
         other.REQ_ID == REQ_ID &&
-        other.SID == SID;
+        other.SID == SID &&
+        other.initialLoad == initialLoad;
   }
 
   @override
@@ -159,6 +169,7 @@ class CctvsProvider extends AutoDisposeFutureProvider<List<CctvListResModel>> {
     hash = _SystemHash.combine(hash, HSP_TP_CD.hashCode);
     hash = _SystemHash.combine(hash, REQ_ID.hashCode);
     hash = _SystemHash.combine(hash, SID.hashCode);
+    hash = _SystemHash.combine(hash, initialLoad.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -173,6 +184,9 @@ mixin CctvsRef on AutoDisposeFutureProviderRef<List<CctvListResModel>> {
 
   /// The parameter `SID` of this provider.
   String get SID;
+
+  /// The parameter `initialLoad` of this provider.
+  dynamic get initialLoad;
 }
 
 class _CctvsProviderElement
@@ -186,6 +200,8 @@ class _CctvsProviderElement
   String get REQ_ID => (origin as CctvsProvider).REQ_ID;
   @override
   String get SID => (origin as CctvsProvider).SID;
+  @override
+  dynamic get initialLoad => (origin as CctvsProvider).initialLoad;
 }
 
 String _$updateCctvResponseHash() =>

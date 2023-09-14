@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cctv_model.dart';
+part of 'cctv_list_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

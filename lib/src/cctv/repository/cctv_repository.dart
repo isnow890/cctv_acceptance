@@ -1,4 +1,4 @@
-import 'package:cctv_acceptance/src/cctv/model/cctv_model.dart';
+import 'package:cctv_acceptance/src/cctv/model/cctv_list_model.dart';
 import 'package:cctv_acceptance/src/cctv/model/cctv_update_req_model.dart';
 import 'package:cctv_acceptance/src/common/model/reponse_model.dart';
 import 'package:cctv_acceptance/src/data.dart';

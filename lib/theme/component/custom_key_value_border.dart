@@ -19,12 +19,12 @@ class CustomKeyValueBorder extends ConsumerWidget {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.0),
-            color: theme.color.onToastContainer,
+            borderRadius: BorderRadius.circular(10.0),
+            color: theme.color.hintContainer,
             // color: theme.color.primary.withOpacity(opacity),
             border: Border.all(
               color: theme.color.inactiveContainer,
-              width: 2.0,
+              width: 1.0,
             ),
           ),
           child: child,

@@ -1,4 +1,3 @@
-import 'package:cctv_acceptance/src/cctv/model/post_model.dart';
 import 'package:cctv_acceptance/src/common/view/result_screen.dart';
 import 'package:cctv_acceptance/src/cctv/view/cctv_response_screen.dart';
 import 'package:flutter/cupertino.dart';

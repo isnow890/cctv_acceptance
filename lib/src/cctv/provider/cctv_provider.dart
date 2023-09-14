@@ -1,4 +1,4 @@
-import 'package:cctv_acceptance/src/cctv/model/cctv_model.dart';
+import 'package:cctv_acceptance/src/cctv/model/cctv_list_model.dart';
 import 'package:cctv_acceptance/src/cctv/model/cctv_update_req_model.dart';
 import 'package:cctv_acceptance/src/cctv/repository/cctv_repository.dart';
 import 'package:cctv_acceptance/src/common/model/reponse_model.dart';
@@ -17,12 +17,18 @@ part 'cctv_provider.g.dart';
 Future<List<CctvListResModel>> cctvs(CctvsRef ref,
     {required String HSP_TP_CD,
     required String REQ_ID,
-    required String SID}) async {
+    required String SID,
+      required initialLoad
+     }
+
+     ) async {
   final repository = ref.watch(cctvRepositoryProvider);
 
-  var resp = await Future.wait([
+  print('start');
+
+      var resp = await Future.wait([
     repository.getCctvList(HSP_TP_CD: HSP_TP_CD, REQ_ID: REQ_ID, SID: SID),
-    Future.delayed(const Duration(milliseconds: 1000)),
+    Future.delayed( Duration(milliseconds: initialLoad? 1500:300)),
   ]);
 
   print('resp[0].length');

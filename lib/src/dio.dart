@@ -30,6 +30,7 @@ class CustomInterceptor extends Interceptor {
       'Content-Type': 'application/json',
       'Accept': '*/*',
     'Access-Control-Allow-Origin' :'*',
+      "ngrok-skip-browser-warning": "69420",
 
     'authorization': 'Bearer aGFoYWhvaG8='
     });
