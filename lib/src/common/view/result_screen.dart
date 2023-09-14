@@ -34,8 +34,8 @@ class ResultScreen extends ConsumerWidget {
               Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.0),
-                    color: theme.color.inactiveContainer,
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: theme.color.hintContainer,
                     border: Border.all(
                       color: theme.color.inactiveContainer,
                       width: 1.0,

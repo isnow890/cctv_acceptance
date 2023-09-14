@@ -118,28 +118,28 @@ class _CustomTextFormFieldState extends ConsumerState<CustomTextFormField> {
 
         border: OutlineInputBorder(
           borderSide: BorderSide(
-            width: 2,
-            color: theme.color.hintContainer,
+            width: 1,
+            color: theme.color.inactiveContainer,
           ),
 
           /// 테두리 둥글게
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
         ),
 
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            width: 2,
-            color: theme.color.hint,
+            width: 1,
+            color: theme.color.inactiveContainer,
           ),
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
         ),
 
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            width: 2,
+            width: 1,
             color: theme.color.primary,
           ),
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
         ),
         suffixIcon: widget.controller == null
             ? null
