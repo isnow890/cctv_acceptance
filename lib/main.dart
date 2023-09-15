@@ -27,6 +27,7 @@ class _App extends ConsumerWidget {
     return Center(
       child: ConstrainedScreen(
         child: MaterialApp.router(
+          title: '다양한 응답 기록',
           builder: (context, child) {
             return Overlay(
               initialEntries: [

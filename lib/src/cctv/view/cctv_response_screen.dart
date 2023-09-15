@@ -113,7 +113,12 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      _renderFrontSection(),
+
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child:_renderFrontSection(),
+                      ),
+
                       const SizedBox(
                         height: 20,
                       ),
