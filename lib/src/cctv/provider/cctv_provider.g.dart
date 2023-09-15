@@ -6,7 +6,7 @@ part of 'cctv_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cctvsHash() => r'720212f55bce456a69a96142ee0f635ac4a893bc';
+String _$cctvsHash() => r'4fe9ddcda09194b352364bef9092e4e64ffac32e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -205,7 +205,7 @@ class _CctvsProviderElement
 }
 
 String _$updateCctvResponseHash() =>
-    r'6e2ef2ef17203cc5045ddcdb207838ae148955d5';
+    r'a142d9dc1e98ff02d5f1380b58fce214eda5e8d4';
 
 /// See also [updateCctvResponse].
 @ProviderFor(updateCctvResponse)

@@ -1,11 +1,9 @@
-
-import 'package:cctv_acceptance/theme/component/bottom_sheet/setting_bottom_sheet.dart';
-import 'package:cctv_acceptance/theme/component/button/button.dart';
-import 'package:cctv_acceptance/theme/component/custom_key_value_border.dart';
 import 'package:cctv_acceptance/theme/layout/default_layout.dart';
 import 'package:cctv_acceptance/theme/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../theme/component/custom_divider.dart';
 
 class ResultScreen extends ConsumerWidget {
   ResultScreen({
@@ -59,9 +57,7 @@ class ResultScreen extends ConsumerWidget {
                         const SizedBox(
                           height: 15,
                         ),
-                        const Divider(
-                          height: 10,
-                        ),
+                        const CustomDivider(),
                         const SizedBox(
                           height: 15,
                         ),

@@ -11,7 +11,7 @@ _$_ResponseModel<T> _$$_ResponseModelFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     _$_ResponseModel<T>(
-      isSuccess: json['isSuccess'] as bool,
+      isSuccess: json['isSuccess'] as bool?,
       message: _$nullableGenericFromJson(json['message'], fromJsonT),
     );
 

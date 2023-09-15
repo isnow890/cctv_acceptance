@@ -7,7 +7,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cctv_provider.g.dart';
 
-
 // http://localhost:65311/#/cctv/01/1/1003824
 
 // @Query("HSP_TP_CD") required String HSP_TP_CD,
@@ -18,17 +17,14 @@ Future<List<CctvListResModel>> cctvs(CctvsRef ref,
     {required String HSP_TP_CD,
     required String REQ_ID,
     required String SID,
-      required initialLoad
-     }
-
-     ) async {
+    required initialLoad}) async {
   final repository = ref.watch(cctvRepositoryProvider);
 
   print('start');
 
-      var resp = await Future.wait([
+  var resp = await Future.wait([
     repository.getCctvList(HSP_TP_CD: HSP_TP_CD, REQ_ID: REQ_ID, SID: SID),
-    Future.delayed( Duration(milliseconds: initialLoad? 1500:300)),
+    Future.delayed(Duration(milliseconds: initialLoad ? 800 : 300)),
   ]);
 
   print('resp[0].length');
@@ -47,7 +43,12 @@ Future<String> updateCctvResponse(UpdateCctvResponseRef ref,
       repository.responseCctv(body: body),
       Future.delayed(const Duration(milliseconds: 555)),
     ]);
-    return (resp[0] as ResponseModel).message;
+
+    print(resp[0]);
+
+    return '해당 건은 이미 응답처리 되었습니다.';
+
+    //return (resp[0] as ResponseModel).message;
   } catch (e) {
     print(e);
 //state = ModelBaseError(message: CANNOT_PROCESS_DATA_MESSAGE);

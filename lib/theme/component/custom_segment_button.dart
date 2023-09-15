@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
 
-class SegmentButton extends ConsumerWidget {
-  const SegmentButton(
+class CustomSegmentButton extends ConsumerWidget {
+  const CustomSegmentButton(
       {Key? key,
       required this.selectionIndex,
       required this.onSegmentTapped,
@@ -30,7 +30,7 @@ class SegmentButton extends ConsumerWidget {
                 horizontalPadding: const EdgeInsets.all(0),
                 selectionIndex: selectionIndex,
                 // borderColor: Colors.grey,
-                unselectedColor: theme.color.onInactiveContainer,
+                unselectedColor: theme.color.hintContainer,
                 unselectedTextStyle:
                     theme.typo.headline3.copyWith(color: theme.color.primary),
                 selectedTextStyle:

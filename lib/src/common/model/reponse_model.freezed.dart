@@ -21,7 +21,7 @@ ResponseModel<T> _$ResponseModelFromJson<T>(
 
 /// @nodoc
 mixin _$ResponseModel<T> {
-  bool get isSuccess => throw _privateConstructorUsedError;
+  bool? get isSuccess => throw _privateConstructorUsedError;
   T? get message => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
@@ -37,7 +37,7 @@ abstract class $ResponseModelCopyWith<T, $Res> {
           ResponseModel<T> value, $Res Function(ResponseModel<T>) then) =
       _$ResponseModelCopyWithImpl<T, $Res, ResponseModel<T>>;
   @useResult
-  $Res call({bool isSuccess, T? message});
+  $Res call({bool? isSuccess, T? message});
 }
 
 /// @nodoc
@@ -53,14 +53,14 @@ class _$ResponseModelCopyWithImpl<T, $Res, $Val extends ResponseModel<T>>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isSuccess = null,
+    Object? isSuccess = freezed,
     Object? message = freezed,
   }) {
     return _then(_value.copyWith(
-      isSuccess: null == isSuccess
+      isSuccess: freezed == isSuccess
           ? _value.isSuccess
           : isSuccess // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -77,7 +77,7 @@ abstract class _$$_ResponseModelCopyWith<T, $Res>
       __$$_ResponseModelCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({bool isSuccess, T? message});
+  $Res call({bool? isSuccess, T? message});
 }
 
 /// @nodoc
@@ -91,14 +91,14 @@ class __$$_ResponseModelCopyWithImpl<T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? isSuccess = null,
+    Object? isSuccess = freezed,
     Object? message = freezed,
   }) {
     return _then(_$_ResponseModel<T>(
-      isSuccess: null == isSuccess
+      isSuccess: freezed == isSuccess
           ? _value.isSuccess
           : isSuccess // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -110,14 +110,14 @@ class __$$_ResponseModelCopyWithImpl<T, $Res>
 /// @nodoc
 @JsonSerializable(genericArgumentFactories: true)
 class _$_ResponseModel<T> implements _ResponseModel<T> {
-  _$_ResponseModel({required this.isSuccess, this.message});
+  _$_ResponseModel({this.isSuccess, this.message});
 
   factory _$_ResponseModel.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
       _$$_ResponseModelFromJson(json, fromJsonT);
 
   @override
-  final bool isSuccess;
+  final bool? isSuccess;
   @override
   final T? message;
 
@@ -154,7 +154,7 @@ class _$_ResponseModel<T> implements _ResponseModel<T> {
 }
 
 abstract class _ResponseModel<T> implements ResponseModel<T> {
-  factory _ResponseModel({required final bool isSuccess, final T? message}) =
+  factory _ResponseModel({final bool? isSuccess, final T? message}) =
       _$_ResponseModel<T>;
 
   factory _ResponseModel.fromJson(
@@ -162,7 +162,7 @@ abstract class _ResponseModel<T> implements ResponseModel<T> {
       _$_ResponseModel<T>.fromJson;
 
   @override
-  bool get isSuccess;
+  bool? get isSuccess;
   @override
   T? get message;
   @override

@@ -3,13 +3,12 @@ import 'package:cctv_acceptance/src/cctv/provider/cctv_provider.dart';
 import 'package:cctv_acceptance/src/common/view/result_screen.dart';
 import 'package:cctv_acceptance/theme/component/bottom_sheet/setting_bottom_sheet.dart';
 import 'package:cctv_acceptance/theme/component/button/button.dart';
+import 'package:cctv_acceptance/theme/component/custom_divider.dart';
 import 'package:cctv_acceptance/theme/component/custom_key_value_border.dart';
-import 'package:cctv_acceptance/theme/component/custom_line_by_line_border.dart';
 import 'package:cctv_acceptance/theme/component/custom_text_form_field.dart';
 import 'package:cctv_acceptance/theme/component/dialog/custom_save_dialog.dart';
-import 'package:cctv_acceptance/theme/component/indicator/circular_indicator.dart';
 import 'package:cctv_acceptance/theme/component/indicator/whole_circular_indicator.dart';
-import 'package:cctv_acceptance/theme/component/segment_button.dart';
+import 'package:cctv_acceptance/theme/component/custom_segment_button.dart';
 import 'package:cctv_acceptance/theme/component/splash_screen.dart';
 import 'package:cctv_acceptance/theme/layout/default_layout.dart';
 import 'package:cctv_acceptance/theme/provider/theme_provider.dart';
@@ -80,62 +79,73 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
     return cctv.when(
       data: (data) => WholeCircularIndicator(
         isBusy: _isBusy,
-        child: DefaultLayout(
-          scrollController: _scrollController,
-          useSliver: true,
-          title: Text(
-            screenTitle,
-            style: theme.typo.headline1.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          // canBack: true,
-          actions: [
-            Button(
-              icon: 'option',
-              type: ButtonType.flat,
-              color: theme.color.text,
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return const SettingBottomSheet();
-                  },
-                );
-              },
-            ),
-          ],
-          child: Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 10,
+        child: data.isEmpty
+            ? ResultScreen(title: '알림', detail: '데이터가 없거나 처리 완료된 건입니다.')
+            : DefaultLayout(
+                scrollController: _scrollController,
+                useSliver: true,
+                title: Text(
+                  screenTitle,
+                  style: theme.typo.headline1.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                _renderFrontSection(),
-                const SizedBox(
-                  height: 20,
+                // canBack: true,
+                actions: [
+                  Button(
+                    icon: 'option',
+                    type: ButtonType.flat,
+                    color: theme.color.text,
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return const SettingBottomSheet();
+                        },
+                      );
+                    },
+                  ),
+                ],
+                child: Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _renderFrontSection(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      _renderRequestInfoSection(
+                          get_HSP_TP_Cd: data[0].get_HSP_TP_CD,
+                          PT_NM: data[0].PT_NM,
+                          PT_NO: data[0].PT_NO,
+                          REQ_DT: data[0].REQ_DT),
+                      const SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          '수술 정보',
+                          style: theme.typo.headline4.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      ..._renderOperationSection(data: data),
+                      _renderAgreementYesNoSection(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      _renderAgreementNoSection(),
+                      _renderSubmitButton(
+                          HSP_TP_CD: data[0].HSP_TP_CD,
+                          REQ_ID: data[0].REQ_ID,
+                          SID: data[0].SID),
+                    ],
+                  ),
                 ),
-                _renderRequestInfoSection(
-                    get_HSP_TP_Cd: data[0].get_HSP_TP_CD,
-                    PT_NM: data[0].PT_NM,
-                    PT_NO: data[0].PT_NO,
-                    REQ_DT: data[0].REQ_DT),
-                const SizedBox(height: 20),
-                ..._renderOperationSection(data: data),
-                _renderAgreementYesNoSection(),
-                const SizedBox(
-                  height: 20,
-                ),
-                _renderAgreementNoSection(),
-                _renderSubmitButton(
-                    HSP_TP_CD: data[0].HSP_TP_CD,
-                    REQ_ID: data[0].REQ_ID,
-                    SID: data[0].SID),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
       error: (err, stack) {
         print(stack);
@@ -204,12 +214,11 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
                         agreeYesNo ? '' : agreeNoValue!.toString(),
                     APBT_VETO_RSN_CNTE: val_APBT_VETO_RSN_CNTE);
 
-                print('go update');
 
                 final resp = await ref
                     .read(updateCctvResponseProvider(body: req).future);
 
-                final result = resp.isEmpty ? '제출 완료' : '에러 발생';
+                final result = resp.isEmpty ? '제출 완료' : '정보';
                 final detail = resp.isEmpty ? '감사합니다. 응답이 기록되었습니다.' : resp;
 
                 contextSave.push(
@@ -227,7 +236,6 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
                   _isBusy = false;
                 });
               }
-
               // context.goNamed(CctvOkScreen.routeName,extra: PostModel());
               //
               // // 다른 페이지로 이동하도록 설정
@@ -315,6 +323,9 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
 
     return Column(
       children: [
+        const SizedBox(
+          height: 20,
+        ),
         Align(
           alignment: Alignment.topLeft,
           child: Text(
@@ -327,7 +338,7 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
         const SizedBox(
           height: 20,
         ),
-        SegmentButton(
+        CustomSegmentButton(
             selectionIndex: agreeYesNo ? 0 : 1,
             onSegmentTapped: (selectedIndex) {
               setState(() {
@@ -336,7 +347,6 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
                   print('agreeNoValue!');
                   agreeNoValue = null;
                 }
-                print('tlgod');
 
                 WidgetsBinding.instance!.addPostFrameCallback((_) {
                   Scrollable.ensureVisible(
@@ -348,9 +358,9 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
               });
             },
             children: {
-              0: Text('예', style: segmentTextStyle),
+              0: Text('동의', style: segmentTextStyle),
               1: Text(
-                '아니오',
+                '동의안함',
                 style: segmentTextStyle,
               ),
             }),
@@ -367,19 +377,6 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
         .entries
         .map((e) => Column(
               children: [
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      '수술 ${e.key + 1} 정보',
-                      style: theme.typo.headline4.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
                 const SizedBox(
                   height: 10,
                 ),
@@ -389,14 +386,12 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
                     child: Column(
                       children: [
                         const SizedBox(
-                          height: 10,
-                        ),
-                        _renderSection(
-                            title: '수술예정일자',
-                            value: e.value.OP_EXPT_DT.datetimeToString()),
-                        const Divider(
                           height: 5,
                         ),
+                        _renderSection(
+                            title: '수술 예정일',
+                            value: e.value.OP_EXPT_DT.datetimeToString()),
+                        const CustomDivider(),
                         Align(
                           alignment: Alignment.topLeft,
                           child: _renderVerticalSection(
@@ -413,14 +408,14 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
               ],
             ))
         .toList();
   }
 
-  //요청정보
+  //기본 정보
   _renderRequestInfoSection({
     required get_HSP_TP_Cd,
     required DateTime REQ_DT,
@@ -437,7 +432,7 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
               width: 5,
             ),
             Text(
-              '요청 정보',
+              '기본 정보',
               style: theme.typo.headline4.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -453,23 +448,17 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
             child: Column(
               children: [
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 _renderSection(title: '병원', value: get_HSP_TP_Cd),
-                const Divider(
-                  height: 5,
-                ),
+                const CustomDivider(),
                 _renderSection(title: '요청일자', value: REQ_DT.datetimeToString()),
-                const Divider(
-                  height: 5,
-                ),
+                const CustomDivider(),
                 _renderSection(title: '등록번호', value: PT_NO),
-                const Divider(
-                  height: 5,
-                ),
+                const CustomDivider(),
                 _renderSection(title: '환자명', value: PT_NM),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
               ],
             ),
@@ -495,7 +484,7 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 15),
           Text(
             value,
             style: theme.typo.subtitle1,
@@ -579,24 +568,27 @@ class _AgreeNoWidgetState extends ConsumerState<_AgreeNoWidget> {
 
     return Column(
       children: [
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          '동의안함을 선택하셨습니다. 아래 항목에서 사유를 선택해주세요.',
+          style: theme.typo.headline4.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
         CustomKeyValueBorder(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 15.0,
-              vertical: 20.0,
+              horizontal: 5.0,
+              vertical: 10.0,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '동의안함을 선택하셨습니다. 아래 항목에서 사유를 선택해주세요.',
-                  style: theme.typo.headline4.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
                 _renderRadioTile(
                   title: '응급환자를 수술하는 경우',
                   value: 1,
@@ -633,6 +625,9 @@ class _AgreeNoWidgetState extends ConsumerState<_AgreeNoWidget> {
                   groupValue: widget.agreeNoValue,
                   onChanged: widget.onChanged,
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
               ],
             ),
           ),
@@ -664,10 +659,3 @@ class _AgreeNoWidgetState extends ConsumerState<_AgreeNoWidget> {
     );
   }
 }
-
-// onPopPage: (route, result) {
-// if (!route.didPop(result)) {
-// return false;
-// }
-// // 페이지를 떠날 때 처리할 내용이 있다면 여기에 추가
-// return true;

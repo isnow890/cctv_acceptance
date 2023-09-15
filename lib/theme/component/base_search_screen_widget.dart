@@ -1,3 +1,4 @@
+import 'package:cctv_acceptance/theme/component/custom_divider.dart';
 import 'package:cctv_acceptance/theme/provider/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -50,9 +51,7 @@ class _BaseSearchScreenWidgetState
                   physics: const AlwaysScrollableScrollPhysics(),
                   controller: widget.controller,
                   separatorBuilder: (context, index) {
-                    return const Divider(
-                      height: 20.0,
-                    );
+                    return const CustomDivider();
                   },
                   itemCount: widget.itemCount,
                   itemBuilder: widget.itemBuilder,
