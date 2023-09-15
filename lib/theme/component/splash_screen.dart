@@ -38,7 +38,13 @@ class SplashScreen extends ConsumerWidget {
               height: 20,
             ),
             const CircularIndicator(),
-
+            const SizedBox(
+              height: 15,
+              child: Text(
+                '로딩중입니다.',
+                style: TextStyle(fontSize: 1),
+              ),
+            )
           ],
         ),
       ),
