@@ -14,6 +14,8 @@ class DefaultLayout extends ConsumerStatefulWidget {
   final bool? tabToHideAppbar;
   final bool useSliver;
 
+  final Widget? bottomSheet;
+
   final Widget? bottomNavigationBar;
   final Widget? floatingActionButton;
   final bool? centerTitle;
@@ -22,7 +24,8 @@ class DefaultLayout extends ConsumerStatefulWidget {
   final Future<void> Function()? onRefreshAndError;
   final List<String>? appBarBottomList;
 
-  const DefaultLayout({
+  const DefaultLayout( {
+    this.bottomSheet,
     this.scrollController,
     required this.useSliver,
     Key? key,
@@ -59,6 +62,12 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
     // var appBarHeight = appBar.preferredSize.height;
 
     return Scaffold(
+      bottomSheet: widget.bottomSheet,
+      // bottomSheet: SafeArea(
+      //   child: Padding(
+      //     padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      //   ),
+      // ),
       // backgroundColor: theme.color.surface,
       backgroundColor: theme.color.surface,
       body: widget.useSliver

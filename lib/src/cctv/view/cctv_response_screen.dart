@@ -65,6 +65,17 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
     // textController.text='기본텍스트';
   }
 
+  // void scrollAnimate() {
+  //   print("탭 클릭됨");
+  //   // 6초 후에 실행
+  //   Future.delayed(Duration(milliseconds: 600), () {
+  //     // MediaQuery.of(context).viewInsets.bottom 하단 inset(사용못하는영역)크기 리턴
+  //     // 사용못하는 영역만큼 1초 동안 easeIn으로 이동
+  //     _scrollController.animateTo(MediaQuery.of(context).viewInsets.bottom,
+  //         duration: Duration(milliseconds: 100), curve: Curves.easeIn);
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     final theme = ref.watch(themeServiceProvider);
@@ -107,6 +118,15 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
                     },
                   ),
                 ],
+                bottomSheet: SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom,
+                        left: 16.0,
+                        right: 16.0),
+                    child: SizedBox(),
+                  ),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Column(
@@ -141,11 +161,21 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      _renderAgreementNoSection(),
-                      _renderSubmitButton(
-                          HSP_TP_CD: data[0].HSP_TP_CD,
-                          REQ_ID: data[0].REQ_ID,
-                          SID: data[0].SID),
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            _renderAgreementNoSection(),
+                            _renderSubmitButton(
+                                HSP_TP_CD: data[0].HSP_TP_CD,
+                                REQ_ID: data[0].REQ_ID,
+                                SID: data[0].SID),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        key: key2,
+                        height: 15,
+                      ),
                     ],
                   ),
                 ),
@@ -166,7 +196,6 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
     required String HSP_TP_CD,
   }) {
     return Button(
-      key: key2,
       width: double.infinity,
       onPressed: () async {
         if (!agreeYesNo) {
@@ -307,9 +336,10 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
             ),
             const SizedBox(height: 20),
             CustomTextFormField(
+              // scrollAnimate: scrollAnimate,
               controller: textController,
               hintText: '상세 사유를 입력해주세요.',
-              maxLines: 8,
+              maxLines: 4,
             ),
             const SizedBox(
               height: 15,

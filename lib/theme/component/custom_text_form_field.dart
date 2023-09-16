@@ -33,8 +33,11 @@ class CustomTextFormField extends ConsumerStatefulWidget {
   final FormFieldSetter? onSaved;
   final FormFieldValidator? validator;
   final int? maxLines;
+  final Function? scrollAnimate;
 
-  const CustomTextFormField({
+  const CustomTextFormField(
+     {
+       this.scrollAnimate,
     this.clearVisible = false,
     Key? key,
     this.onClear,
@@ -70,6 +73,11 @@ class _CustomTextFormFieldState extends ConsumerState<CustomTextFormField> {
     //텍스트 필드 Border를 모든 면에 적용함.
 
     return TextFormField(
+      onTap: () {
+        if (widget.scrollAnimate != null) {
+          widget.scrollAnimate!();
+        }
+      },
       maxLines: widget.maxLines,
       validator: widget.validator,
       onFieldSubmitted: widget.onFieldSubmitted,

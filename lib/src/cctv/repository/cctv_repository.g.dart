@@ -57,8 +57,7 @@ class _CctvRepository implements CctvRepository {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body.toJson());
+    final _data = body;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ResponseModel<String>>(Options(
       method: 'POST',

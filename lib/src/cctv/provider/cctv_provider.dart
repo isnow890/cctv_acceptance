@@ -23,7 +23,7 @@ Future<List<CctvListResModel>> cctvs(CctvsRef ref,
 
   var resp = await Future.wait([
     repository.getCctvList(HSP_TP_CD: HSP_TP_CD, REQ_ID: REQ_ID, SID: SID),
-    Future.delayed(Duration(milliseconds: initialLoad ? 800 : 300)),
+    Future.delayed(Duration(milliseconds: initialLoad ? 555 : 300)),
   ]);
 
   return resp[0] as List<CctvListResModel>;
