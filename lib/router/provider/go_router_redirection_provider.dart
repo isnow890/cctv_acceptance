@@ -34,15 +34,38 @@ List<RouteBase> get routes => [
       // ),
 
       GoRoute(
-        path: '/cctv/:HSP_TP_CD/:REQ_ID/:SID',
+        // path: '/cctv/:HSP_TP_CD/:REQ_ID/:SID',
+        path: '/cctv/:value',
         parentNavigatorKey: navigatorKey,
         name: CctvResponseScreen.routeName,
         builder: (context, state) {
-          return CctvResponseScreen(
-            HSP_TP_CD: state.pathParameters['HSP_TP_CD'].toString(),
-            REQ_ID: state.pathParameters['REQ_ID'].toString(),
-            SID: state.pathParameters['SID'].toString(),
-          );
+          final value = state.pathParameters['value'];
+
+          if (value == null) {
+            return const CctvResponseScreen(
+              SID: '0',
+              HSP_TP_CD: '0',
+              REQ_ID: '0',
+            );
+          } else if (value.length < 10) {
+            return const CctvResponseScreen(
+              SID: '0',
+              HSP_TP_CD: '0',
+              REQ_ID: '0',
+            );
+          } else {
+            return CctvResponseScreen(
+              SID: value.substring(0, 7),
+              HSP_TP_CD: value.substring(7, 9),
+              REQ_ID: value.substring(9),
+            );
+          }
+
+          // return CctvResponseScreen(
+          //   SID: value.substring(0, 7).toString(),
+          //   HSP_TP_CD: state.pathParameters['HSP_TP_CD'].toString(),
+          //   REQ_ID: state.pathParameters['REQ_ID'].toString(),
+          // );
         },
       ),
       // GoRoute(

@@ -20,7 +20,7 @@ const WRONG_PAGE_DETAIL = '요청하신 페이지는 존재 하지 않습니다.
 
 
 
-final baseUrl = 'https://def7-106-250-199-244.ngrok-free.app';
+final baseUrl = 'http://isnow890.asuscomm.com:8055';
 
 //  final baseUrl = 'http://10.20.82.56:8044';
 

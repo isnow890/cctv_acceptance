@@ -19,6 +19,7 @@ import 'package:cctv_acceptance/src/util/util_extensions.dart';
 import '../../../theme/component/toast/toast.dart';
 import '../model/cctv_update_req_model.dart';
 
+//http://localhost:64560/#/cctv/1003824021
 //http://localhost:63865/#/cctv/02/1/1003824
 
 class CctvResponseScreen extends ConsumerStatefulWidget {
