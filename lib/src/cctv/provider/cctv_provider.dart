@@ -20,15 +20,11 @@ Future<List<CctvListResModel>> cctvs(CctvsRef ref,
     required initialLoad}) async {
   final repository = ref.watch(cctvRepositoryProvider);
 
-  print('start');
 
   var resp = await Future.wait([
     repository.getCctvList(HSP_TP_CD: HSP_TP_CD, REQ_ID: REQ_ID, SID: SID),
     Future.delayed(Duration(milliseconds: initialLoad ? 800 : 300)),
   ]);
-
-  print('resp[0].length');
-  print(resp[0].length);
 
   return resp[0] as List<CctvListResModel>;
 }
@@ -46,12 +42,12 @@ Future<String> updateCctvResponse(UpdateCctvResponseRef ref,
 
     print(resp[0]);
 
-    return '해당 건은 이미 응답처리 되었습니다.';
-
-    //return (resp[0] as ResponseModel).message;
+    return (resp[0] as ResponseModel<String>).message!;
   } catch (e) {
+    print('에러에러');
     print(e);
-//state = ModelBaseError(message: CANNOT_PROCESS_DATA_MESSAGE);
-    return '';
+
   }
+
+  return '제출 중 에러가 발생하였습니다';
 }

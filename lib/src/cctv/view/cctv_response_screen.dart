@@ -19,7 +19,7 @@ import 'package:cctv_acceptance/src/util/util_extensions.dart';
 import '../../../theme/component/toast/toast.dart';
 import '../model/cctv_update_req_model.dart';
 
-//http://localhost:63865/#/cctv/01/1/1003824
+//http://localhost:63865/#/cctv/02/1/1003824
 
 class CctvResponseScreen extends ConsumerStatefulWidget {
   final String HSP_TP_CD;
@@ -113,12 +113,10 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-
                       Align(
                         alignment: Alignment.topLeft,
-                        child:_renderFrontSection(),
+                        child: _renderFrontSection(),
                       ),
-
                       const SizedBox(
                         height: 20,
                       ),
@@ -218,7 +216,6 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
                     APBT_VETO_RSN_CD:
                         agreeYesNo ? '' : agreeNoValue!.toString(),
                     APBT_VETO_RSN_CNTE: val_APBT_VETO_RSN_CNTE);
-
 
                 final resp = await ref
                     .read(updateCctvResponseProvider(body: req).future);

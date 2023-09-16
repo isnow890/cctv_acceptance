@@ -14,6 +14,7 @@ class SplashScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(themeServiceProvider);
     return DefaultLayout(
       useSliver: false,
       child: SizedBox(
@@ -42,7 +43,10 @@ class SplashScreen extends ConsumerWidget {
               height: 15,
               child: Text(
                 '로딩중입니다.',
-                style: TextStyle(fontSize: 1),
+                style: TextStyle(
+                  fontSize: 1,
+                  color: Colors.transparent,
+                ),
               ),
             )
           ],
