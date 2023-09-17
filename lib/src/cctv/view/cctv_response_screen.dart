@@ -600,6 +600,7 @@ class _AgreeNoWidgetState extends ConsumerState<_AgreeNoWidget> {
     final theme = ref.watch(themeServiceProvider);
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
           height: 10,

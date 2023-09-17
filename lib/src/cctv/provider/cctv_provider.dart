@@ -20,13 +20,16 @@ Future<List<CctvListResModel>> cctvs(CctvsRef ref,
     required initialLoad}) async {
   final repository = ref.watch(cctvRepositoryProvider);
 
+  var resp  = await repository.getCctvList(HSP_TP_CD: HSP_TP_CD, REQ_ID: REQ_ID, SID: SID);
 
-  var resp = await Future.wait([
-    repository.getCctvList(HSP_TP_CD: HSP_TP_CD, REQ_ID: REQ_ID, SID: SID),
-    Future.delayed(Duration(milliseconds: initialLoad ? 555 : 300)),
-  ]);
+  return resp;
 
-  return resp[0] as List<CctvListResModel>;
+  // var resp = await Future.wait([
+  //   repository.getCctvList(HSP_TP_CD: HSP_TP_CD, REQ_ID: REQ_ID, SID: SID),
+  //   Future.delayed(Duration(milliseconds: initialLoad ? 555 : 300)),
+  // ]);
+  //
+  // return resp[0] as List<CctvListResModel>;
 }
 
 @riverpod

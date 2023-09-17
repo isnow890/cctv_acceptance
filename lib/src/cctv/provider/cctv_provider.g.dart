@@ -6,7 +6,7 @@ part of 'cctv_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cctvsHash() => r'5a89bae59dbb5a9780126aeefcf9d84e31fdf41c';
+String _$cctvsHash() => r'2093f983f1e243716ce3e10f39e845e316de72ba';
 
 /// Copied from Dart SDK
 class _SystemHash {
