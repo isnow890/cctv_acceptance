@@ -48,16 +48,20 @@ class DefaultLayout extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(themeServiceProvider);
 
-    return _renderScaffold(theme);
+    return _renderScaffold(theme, context);
   }
 
-  _renderScaffold(AppTheme theme) {
+  _renderScaffold(AppTheme theme, BuildContext context) {
     //
 
     // AppBar appBar = _renderAppbar(theme);
     // var appBarHeight = appBar.preferredSize.height;
 
+
     return Scaffold(
+
+
+       // resizeToAvoidBottomInset: false,
       bottomSheet: bottomSheet,
       // bottomSheet: SafeArea(
       //   child: Padding(
@@ -68,14 +72,21 @@ class DefaultLayout extends ConsumerWidget {
       backgroundColor: theme.color.surface,
       body: useSliver
           ? CustomScrollView(
+        // reverse: true,
               controller: scrollController,
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               slivers: [
                 title == null
                     ? const SliverToBoxAdapter()
                     : _renderSliverAppbar(theme),
-
                 child,
+                SliverPadding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
+                SliverToBoxAdapter(
+                  child: Container(
+                    color: Colors.red,
+                    height: MediaQuery.of(context).viewInsets.bottom,
+                  ),
+                )
               ],
             )
           : child,
@@ -97,7 +108,6 @@ class DefaultLayout extends ConsumerWidget {
           ? null
           : IconButton(
               icon: Icon(Icons.arrow_back, color: theme.color.text),
-
               onPressed: () {
                 BuildContext? context = navigatorKey.currentContext;
 

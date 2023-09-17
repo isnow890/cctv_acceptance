@@ -33,24 +33,21 @@ class _App extends ConsumerWidget {
             ref.read(themeServiceProvider.notifier).toggleTheme();
           }
 
-          return Center(
-            child: ConstrainedScreen(
-              child: MaterialApp.router(
-                title: '다양한 응답 기록',
-                builder: (context, child) {
-                  return Overlay(
-                    initialEntries: [
-                      OverlayEntry(
-                        builder: (context) => child!,
-                      )
-                    ],
-                  );
-                },
-                routerConfig: router,
-                theme: ref.read(themeServiceProvider.notifier).themeData,
-                debugShowCheckedModeBanner: false,
-              ),
-            ),
+          return MaterialApp.router(
+            useInheritedMediaQuery: true,
+            title: '다양한 응답 기록',
+            builder: (context, child) {
+              return Overlay(
+                initialEntries: [
+                  OverlayEntry(
+                    builder: (context) => child!,
+                  )
+                ],
+              );
+            },
+            routerConfig: router,
+            theme: ref.read(themeServiceProvider.notifier).themeData,
+            debugShowCheckedModeBanner: false,
           );
         });
   }

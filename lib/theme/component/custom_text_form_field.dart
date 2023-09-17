@@ -35,8 +35,11 @@ class CustomTextFormField extends ConsumerStatefulWidget {
   final int? maxLines;
   final Function? scrollAnimate;
 
+  final FocusNode? focusNode;
+
   const CustomTextFormField(
      {
+       this.focusNode,
        this.scrollAnimate,
     this.clearVisible = false,
     Key? key,
@@ -73,6 +76,7 @@ class _CustomTextFormFieldState extends ConsumerState<CustomTextFormField> {
     //텍스트 필드 Border를 모든 면에 적용함.
 
     return TextFormField(
+      focusNode: widget.focusNode,
       onTap: () {
         if (widget.scrollAnimate != null) {
           widget.scrollAnimate!();
