@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../router/provider/go_router_provider.dart';
 import '../foundation/app_theme.dart';
 import '../provider/theme_provider.dart';
 
-class DefaultLayout extends ConsumerStatefulWidget {
+class DefaultLayout extends ConsumerWidget {
   final Widget child;
 
   final Widget? title;
@@ -24,7 +25,7 @@ class DefaultLayout extends ConsumerStatefulWidget {
   final Future<void> Function()? onRefreshAndError;
   final List<String>? appBarBottomList;
 
-  const DefaultLayout( {
+  DefaultLayout({
     this.bottomSheet,
     this.scrollController,
     required this.useSliver,
@@ -41,15 +42,10 @@ class DefaultLayout extends ConsumerStatefulWidget {
     this.canBack = false,
   }) : super(key: key);
 
-  @override
-  ConsumerState<DefaultLayout> createState() => _DefaultLayoutState();
-}
-
-class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
   bool hideAppbar = false;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(themeServiceProvider);
 
     return _renderScaffold(theme);
@@ -62,7 +58,7 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
     // var appBarHeight = appBar.preferredSize.height;
 
     return Scaffold(
-      bottomSheet: widget.bottomSheet,
+      bottomSheet: bottomSheet,
       // bottomSheet: SafeArea(
       //   child: Padding(
       //     padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -70,22 +66,21 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
       // ),
       // backgroundColor: theme.color.surface,
       backgroundColor: theme.color.surface,
-      body: widget.useSliver
+      body: useSliver
           ? CustomScrollView(
-              controller: widget.scrollController,
+              controller: scrollController,
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               slivers: [
-                widget.title == null
+                title == null
                     ? const SliverToBoxAdapter()
                     : _renderSliverAppbar(theme),
-                SliverToBoxAdapter(
-                  child: widget.child,
-                ),
+
+                child,
               ],
             )
-          : widget.child,
-      bottomNavigationBar: widget.bottomNavigationBar,
-      floatingActionButton: widget.floatingActionButton,
+          : child,
+      bottomNavigationBar: bottomNavigationBar,
+      floatingActionButton: floatingActionButton,
     );
   }
 
@@ -98,18 +93,23 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
       // List를 최상단으로 올렸을 때만 나와야 한다. -> false
       floating: true,
       backgroundColor: theme.color.surface,
-      leading: !widget.canBack
+      leading: !canBack
           ? null
           : IconButton(
               icon: Icon(Icons.arrow_back, color: theme.color.text),
-              onPressed: () => Navigator.of(context).pop(),
+
+              onPressed: () {
+                BuildContext? context = navigatorKey.currentContext;
+
+                Navigator.of(context!).pop();
+              },
             ),
       iconTheme: IconThemeData(color: theme.color.onPrimary),
       // backgroundColor: theme.color.primary,
-      centerTitle: widget.centerTitle ?? true,
+      centerTitle: centerTitle ?? true,
       //앱바가 튀어나오도록 보이게끔
       elevation: 0,
-      title: widget.title,
+      title: title,
       // title: Text(
       //   widget.title!,
       //   style: theme.typo.headline6,
@@ -117,9 +117,9 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
       //   //   color: theme.color.onPrimary,
       //   // ),
       // ),
-      actions: widget.actions,
+      actions: actions,
       titleSpacing: 0,
-      bottom: widget.appBarBottomList == null
+      bottom: appBarBottomList == null
           ? null
           : PreferredSize(
               preferredSize: const Size.fromHeight(40),
@@ -128,9 +128,9 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
                 child: TabBar(
                   indicatorPadding: EdgeInsets.zero,
                   tabs: List.generate(
-                    widget.appBarBottomList!.length,
+                    appBarBottomList!.length,
                     (index) => Tab(
-                      text: widget.appBarBottomList![index],
+                      text: appBarBottomList![index],
                     ),
                   ),
                   // 5
@@ -151,23 +151,26 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
   }
 
   _renderAppbar(AppTheme theme) {
-    if (widget.title == null) {
+    if (title == null) {
       return null;
     } else {
       return AppBar(
         backgroundColor: theme.color.surface,
-        leading: !widget.canBack
+        leading: !canBack
             ? null
             : IconButton(
                 icon: Icon(Icons.arrow_back, color: theme.color.text),
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () {
+                  BuildContext? context = navigatorKey.currentContext;
+                  Navigator.of(context!).pop();
+                },
               ),
         iconTheme: IconThemeData(color: theme.color.onPrimary),
         // backgroundColor: theme.color.primary,
-        centerTitle: widget.centerTitle ?? true,
+        centerTitle: centerTitle ?? true,
         //앱바가 튀어나오도록 보이게끔
         elevation: 0,
-        title: widget.title,
+        title: title,
         // title: Text(
         //   widget.title!,
         //   style: theme.typo.headline6,
@@ -175,9 +178,9 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
         //   //   color: theme.color.onPrimary,
         //   // ),
         // ),
-        actions: widget.actions,
+        actions: actions,
         titleSpacing: 0,
-        bottom: widget.appBarBottomList == null
+        bottom: appBarBottomList == null
             ? null
             : PreferredSize(
                 preferredSize: const Size.fromHeight(40),
@@ -186,9 +189,9 @@ class _DefaultLayoutState extends ConsumerState<DefaultLayout> {
                   child: TabBar(
                     indicatorPadding: EdgeInsets.zero,
                     tabs: List.generate(
-                      widget.appBarBottomList!.length,
+                      appBarBottomList!.length,
                       (index) => Tab(
-                        text: widget.appBarBottomList![index],
+                        text: appBarBottomList![index],
                       ),
                     ),
                     // 5

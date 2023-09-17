@@ -45,6 +45,7 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
   int? agreeNoValue;
   bool _isBusy = false;
   final key2 = GlobalKey();
+  final key3 = GlobalKey();
 
   final ScrollController _scrollController = ScrollController();
 
@@ -127,56 +128,61 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
                     child: SizedBox(),
                   ),
                 ),
-                child: Padding(
+                child: SliverPadding(
                   padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: _renderFrontSection(),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      _renderRequestInfoSection(
-                          get_HSP_TP_Cd: data[0].get_HSP_TP_CD,
-                          PT_NM: data[0].PT_NM,
-                          PT_NO: data[0].PT_NO,
-                          REQ_DT: data[0].REQ_DT),
-                      const SizedBox(height: 20),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          '수술 정보',
-                          style: theme.typo.headline4.copyWith(
-                            fontWeight: FontWeight.bold,
+                  sliver: SliverList(
+                    delegate: SliverChildListDelegate(
+                      [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: _renderFrontSection(),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        _renderRequestInfoSection(
+                            get_HSP_TP_Cd: data[0].get_HSP_TP_CD,
+                            PT_NM: data[0].PT_NM,
+                            PT_NO: data[0].PT_NO,
+                            REQ_DT: data[0].REQ_DT),
+                        const SizedBox(height: 20),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            '수술 정보',
+                            style: theme.typo.headline4.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                      ..._renderOperationSection(data: data),
-                      _renderAgreementYesNoSection(),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            _renderAgreementNoSection(),
-                            _renderSubmitButton(
-                                HSP_TP_CD: data[0].HSP_TP_CD,
-                                REQ_ID: data[0].REQ_ID,
-                                SID: data[0].SID),
-                          ],
+                        ..._renderOperationSection(data: data),
+                        _renderAgreementYesNoSection(),
+                         SizedBox(
+                          key: key2,
+
+                          height: 20,
                         ),
-                      ),
-                      SizedBox(
-                        key: key2,
-                        height: 15,
-                      ),
-                    ],
+                        SingleChildScrollView(
+
+                          child: Column(
+                            children: [
+                              _renderAgreementNoSection(),
+                              _renderSubmitButton(
+                                  HSP_TP_CD: data[0].HSP_TP_CD,
+                                  REQ_ID: data[0].REQ_ID,
+                                  SID: data[0].SID),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -304,7 +310,7 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
                 if (agreeNoValue == 4) {
                   WidgetsBinding.instance!.addPostFrameCallback((_) {
                     Scrollable.ensureVisible(
-                      key2.currentContext!,
+                      key3.currentContext!,
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
                     );
@@ -341,7 +347,8 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
               hintText: '상세 사유를 입력해주세요.',
               maxLines: 4,
             ),
-            const SizedBox(
+             SizedBox(
+              key :key3,
               height: 15,
             ),
           ]),
