@@ -10,6 +10,8 @@ GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
+
+
     routes: routes,
     initialLocation: '/result',
     navigatorKey: navigatorKey,
