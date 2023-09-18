@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_strategy/url_strategy.dart'; // 패키지를 import.
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 import 'router/provider/go_router_provider.dart';
 import 'theme/component/constrained_screen.dart';
@@ -9,6 +10,7 @@ import 'theme/provider/theme_provider.dart';
 
 void main() async {
   // setPathUrlStrategy();
+  setUrlStrategy(PathUrlStrategy());
 
   runApp(const ProviderScope(child: _App()));
 }

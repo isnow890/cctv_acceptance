@@ -55,7 +55,6 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
     if (_focusNode.hasFocus) {
       setState(() {
         keyboardSize = 250;
-
       });
       WidgetsBinding.instance!.addPostFrameCallback((_) {
         Scrollable.ensureVisible(
@@ -136,94 +135,96 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
     return cctv.when(
       data: (data) => data.isEmpty
           ? ResultScreen(title: '알림', detail: '데이터가 없거나 처리 완료된 건입니다.')
-          : DefaultLayout(
-              scrollController: _scrollController,
-              useSliver: true,
-              title: Text(
-                screenTitle,
-                style: theme.typo.headline1.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              // canBack: true,
-              actions: [
-                Button(
-                  icon: 'option',
-                  type: ButtonType.flat,
-                  color: theme.color.text,
-                  onPressed: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return const SettingBottomSheet();
-                      },
-                    );
-                  },
-                ),
-              ],
-
-              child: SliverPadding(
-                padding: const EdgeInsets.all(18.0),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: _renderFrontSection(),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      _renderRequestInfoSection(
-                          get_HSP_TP_Cd: data[0].get_HSP_TP_CD,
-                          PT_NM: data[0].PT_NM,
-                          PT_NO: data[0].PT_NO,
-                          REQ_DT: data[0].REQ_DT),
-                      const SizedBox(height: 20),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          '수술 정보',
-                          style: theme.typo.headline4.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      ..._renderOperationSection(data: data),
-                      _renderAgreementYesNoSection(),
-                      SizedBox(
-                        key: key2,
-                        height: 20,
-                      ),
-                      _renderAgreementNoSection(),
-                      _renderSubmitButton(
-                          HSP_TP_CD: data[0].HSP_TP_CD,
-                          REQ_ID: data[0].REQ_ID,
-                          SID: data[0].SID),
-                      // SingleChildScrollView(
-                      //
-                      //   physics: const ClampingScrollPhysics(),
-                      //   child: Column(
-                      //     children: [
-                      //
-                      //     ],
-                      //   ),
-                      // ),
-
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      SizedBox(
-                        height: keyboardSize,
-                      ),
-                    ],
+          : WholeCircularIndicator(
+              isBusy: _isBusy,
+              child: DefaultLayout(
+                scrollController: _scrollController,
+                useSliver: true,
+                title: Text(
+                  screenTitle,
+                  style: theme.typo.headline1.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-            ),
+                // canBack: true,
+                actions: [
+                  Button(
+                    icon: 'option',
+                    type: ButtonType.flat,
+                    color: theme.color.text,
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return const SettingBottomSheet();
+                        },
+                      );
+                    },
+                  ),
+                ],
+
+                child: SliverPadding(
+                  padding: const EdgeInsets.all(18.0),
+                  sliver: SliverList(
+                    delegate: SliverChildListDelegate(
+                      [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: _renderFrontSection(),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        _renderRequestInfoSection(
+                            get_HSP_TP_Cd: data[0].get_HSP_TP_CD,
+                            PT_NM: data[0].PT_NM,
+                            PT_NO: data[0].PT_NO,
+                            REQ_DT: data[0].REQ_DT),
+                        const SizedBox(height: 20),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            '수술 정보',
+                            style: theme.typo.headline4.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        ..._renderOperationSection(data: data),
+                        _renderAgreementYesNoSection(),
+                        SizedBox(
+                          key: key2,
+                          height: 20,
+                        ),
+                        _renderAgreementNoSection(),
+                        _renderSubmitButton(
+                            HSP_TP_CD: data[0].HSP_TP_CD,
+                            REQ_ID: data[0].REQ_ID,
+                            SID: data[0].SID),
+                        // SingleChildScrollView(
+                        //
+                        //   physics: const ClampingScrollPhysics(),
+                        //   child: Column(
+                        //     children: [
+                        //
+                        //     ],
+                        //   ),
+                        // ),
+
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        SizedBox(
+                          height: keyboardSize,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )),
       error: (err, stack) {
         print(stack);
         return ResultScreen(title: '에러발생', detail: '에러가 발생하였습니다. 다시 시도해주세요.');
@@ -389,7 +390,6 @@ class _CctvResponseScreenState extends ConsumerState<CctvResponseScreen> {
               key: key3,
               height: 15,
             ),
-
           ]),
         ),
       ],

@@ -61,7 +61,7 @@ class DefaultLayout extends ConsumerWidget {
     return Scaffold(
 
 
-       // resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       bottomSheet: bottomSheet,
       // bottomSheet: SafeArea(
       //   child: Padding(
@@ -73,22 +73,21 @@ class DefaultLayout extends ConsumerWidget {
       body: useSliver
           ? CustomScrollView(
         // reverse: true,
-              controller: scrollController,
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              slivers: [
-                title == null
-                    ? const SliverToBoxAdapter()
-                    : _renderSliverAppbar(theme),
-                child,
-                SliverPadding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
-                SliverToBoxAdapter(
-                  child: Container(
-                    color: Colors.red,
-                    height: MediaQuery.of(context).viewInsets.bottom,
-                  ),
-                )
-              ],
-            )
+        controller: scrollController,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        slivers: [
+          title == null
+              ? const SliverToBoxAdapter()
+              : _renderSliverAppbar(theme),
+          child,
+          SliverPadding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
+          // SliverToBoxAdapter(
+          //   child: Container(
+          //     height: MediaQuery.of(context).viewInsets.bottom,
+          //   ),
+          // )
+        ],
+      )
           : child,
       bottomNavigationBar: bottomNavigationBar,
       floatingActionButton: floatingActionButton,
@@ -107,13 +106,13 @@ class DefaultLayout extends ConsumerWidget {
       leading: !canBack
           ? null
           : IconButton(
-              icon: Icon(Icons.arrow_back, color: theme.color.text),
-              onPressed: () {
-                BuildContext? context = navigatorKey.currentContext;
+        icon: Icon(Icons.arrow_back, color: theme.color.text),
+        onPressed: () {
+          BuildContext? context = navigatorKey.currentContext;
 
-                Navigator.of(context!).pop();
-              },
-            ),
+          Navigator.of(context!).pop();
+        },
+      ),
       iconTheme: IconThemeData(color: theme.color.onPrimary),
       // backgroundColor: theme.color.primary,
       centerTitle: centerTitle ?? true,
@@ -132,31 +131,31 @@ class DefaultLayout extends ConsumerWidget {
       bottom: appBarBottomList == null
           ? null
           : PreferredSize(
-              preferredSize: const Size.fromHeight(40),
-              child: Container(
-                color: theme.color.surface,
-                child: TabBar(
-                  indicatorPadding: EdgeInsets.zero,
-                  tabs: List.generate(
-                    appBarBottomList!.length,
-                    (index) => Tab(
-                      text: appBarBottomList![index],
-                    ),
-                  ),
-                  // 5
-                  labelColor: theme.color.primary,
-                  // 6
-                  unselectedLabelColor: theme.color.subtext,
-                  labelStyle:
-                      theme.typo.body1.copyWith(fontWeight: FontWeight.bold),
-
-                  indicator: UnderlineTabIndicator(
-                    borderSide:
-                        BorderSide(width: 2, color: theme.color.primary),
-                  ),
-                ),
+        preferredSize: const Size.fromHeight(40),
+        child: Container(
+          color: theme.color.surface,
+          child: TabBar(
+            indicatorPadding: EdgeInsets.zero,
+            tabs: List.generate(
+              appBarBottomList!.length,
+                  (index) => Tab(
+                text: appBarBottomList![index],
               ),
             ),
+            // 5
+            labelColor: theme.color.primary,
+            // 6
+            unselectedLabelColor: theme.color.subtext,
+            labelStyle:
+            theme.typo.body1.copyWith(fontWeight: FontWeight.bold),
+
+            indicator: UnderlineTabIndicator(
+              borderSide:
+              BorderSide(width: 2, color: theme.color.primary),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -169,12 +168,12 @@ class DefaultLayout extends ConsumerWidget {
         leading: !canBack
             ? null
             : IconButton(
-                icon: Icon(Icons.arrow_back, color: theme.color.text),
-                onPressed: () {
-                  BuildContext? context = navigatorKey.currentContext;
-                  Navigator.of(context!).pop();
-                },
-              ),
+          icon: Icon(Icons.arrow_back, color: theme.color.text),
+          onPressed: () {
+            BuildContext? context = navigatorKey.currentContext;
+            Navigator.of(context!).pop();
+          },
+        ),
         iconTheme: IconThemeData(color: theme.color.onPrimary),
         // backgroundColor: theme.color.primary,
         centerTitle: centerTitle ?? true,
@@ -193,31 +192,31 @@ class DefaultLayout extends ConsumerWidget {
         bottom: appBarBottomList == null
             ? null
             : PreferredSize(
-                preferredSize: const Size.fromHeight(40),
-                child: Container(
-                  color: theme.color.surface,
-                  child: TabBar(
-                    indicatorPadding: EdgeInsets.zero,
-                    tabs: List.generate(
-                      appBarBottomList!.length,
-                      (index) => Tab(
-                        text: appBarBottomList![index],
-                      ),
-                    ),
-                    // 5
-                    labelColor: theme.color.primary,
-                    // 6
-                    unselectedLabelColor: theme.color.subtext,
-                    labelStyle:
-                        theme.typo.body1.copyWith(fontWeight: FontWeight.bold),
-
-                    indicator: UnderlineTabIndicator(
-                      borderSide:
-                          BorderSide(width: 2, color: theme.color.primary),
-                    ),
-                  ),
+          preferredSize: const Size.fromHeight(40),
+          child: Container(
+            color: theme.color.surface,
+            child: TabBar(
+              indicatorPadding: EdgeInsets.zero,
+              tabs: List.generate(
+                appBarBottomList!.length,
+                    (index) => Tab(
+                  text: appBarBottomList![index],
                 ),
               ),
+              // 5
+              labelColor: theme.color.primary,
+              // 6
+              unselectedLabelColor: theme.color.subtext,
+              labelStyle:
+              theme.typo.body1.copyWith(fontWeight: FontWeight.bold),
+
+              indicator: UnderlineTabIndicator(
+                borderSide:
+                BorderSide(width: 2, color: theme.color.primary),
+              ),
+            ),
+          ),
+        ),
       );
     }
   }
